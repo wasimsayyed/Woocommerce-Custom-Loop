@@ -6,7 +6,7 @@
  <?php get_header();  ?>
 
 <div class="container">
-  	<?php
+  	<?php // The args for the loop
     $args = array(
         'posts_per_page' => -1,
         'tax_query' => array(
@@ -14,22 +14,22 @@
             array(
                 'taxonomy' => 'product_cat',
                 'field' => 'slug',
-                'terms' => 'sample'
+                'terms' => 'sample' // Your category name here
             )
         ),
         'post_type' => 'product',
         'orderby' => 'title',
     ); ?>
     <?php
-  		$loop = new WP_Query($args);
+  		$loop = new WP_Query($args); // The Loop
   		if ( $loop->have_posts() ) {
   			while ( $loop->have_posts() ) : $loop->the_post(); ?>
-        <table>
+        <table> <!-- Fetching woocommerce data in table -->
         <tr>
-          <td><?php the_content();  ?></td>
+          <td><?php the_content(); ?></td>
           <td><?php the_title(); ?></td>
           <td><?php echo ( $sku = $product->get_sku() ) ? $sku : __( 'N/A', 'woocommerce' ); ?></td>
-          <td><?php   echo $product->get_price_html();   ?></td>
+          <td><?php   echo $product->get_price_html(); ?></td>
         </tr>
         </table>
         <?php
